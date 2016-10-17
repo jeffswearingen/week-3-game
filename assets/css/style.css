@@ -1,0 +1,41 @@
+body {
+	background-color: black;
+	color: #fff;
+	font-family: 'Teko', sans-serif; 
+
+}
+
+/* Font properties */)
+
+.banner-fonts {
+	font-family: 'Teko', sans-serif; 
+}
+
+
+.body-fonts {
+	font-family: 'Oswald', sans-serif;
+}
+
+.banner {
+	font-size: 96px;
+	text-align: center;
+	font-style: bold;
+}
+
+.lower-banner {
+	font-size: 72px;
+	text-align: center;
+}
+
+/* Body properties */
+.framework {
+	border-top: 1px solid white;
+}
+
+.framework p {
+	font-size: 48px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+
