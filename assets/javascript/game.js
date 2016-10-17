@@ -4,6 +4,9 @@ var currentWord = "";
 var hiddenWord = "";
 var tempWord = "";
 var reset = true;
+var wins = 0;
+var guesses = 5;
+var guessed = [];
 function pickAWord() {
 	reset = false;
 	hiddenWord = "";
@@ -18,12 +21,28 @@ function pickAWord() {
 	document.getElementById('currentWord').innerHTML = currentWord;
 	document.getElementById('hiddenWord').innerHTML = hiddenWord;
 	console.log(currentWord + " " + hiddenWord + " " + reset);
+	guessed = [];
+	guesses = 5;
 }
 
 function setup(reset) {
 	if (reset == true) {
 		pickAWord();
+		guessed = [];
+		guesses = 5;
+
 	}
+}
+
+function checkForWin() {
+	if (hiddenWord === currentWord) {
+		wins += 1;
+		document.getElementById('wins').innerHTML = wins;
+		pickAWord();
+
+	}
+
+
 }
 
 document.onkeyup = function(event) {
@@ -38,9 +57,28 @@ document.onkeyup = function(event) {
 		} else {
 			tempWord += "_";
 		}
+
 	}
-	
+	if (eventInput != " ") {
+		console.log("test");
+		console.log(eventInput);
+		console.log(guessed);
+		if (guessed.indexOf(eventInput) == -1) {
+			guessed.push(eventInput);
+			if (currentWord.indexOf(eventInput) == -1) {
+				guesses--;
+				document.getElementById('guesses').innerHTML = guesses;
+			}
+		document.getElementById('guessed').innerHTML = guessed.join(' ');
+		}
+
+	}
+	if (guesses <= 0) {
+		document.getElementById('alert').innerHTML = "Game Over";
+		pickAWord();
+	}
 	hiddenWord = tempWord;
 	tempWord = "";
 	document.getElementById('hiddenWord').innerHTML = hiddenWord;
+	checkForWin();
 }	
