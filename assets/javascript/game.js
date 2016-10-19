@@ -40,6 +40,9 @@ function checkForWin() {
 	var currentWordConversion = [];
 	for (var k = 0; k < currentWord.length; k++) {
 		currentWordConversion[k] = currentWord.charAt(k);
+		if (currentWord.charAt(k) == ' ') { 
+			currentWordConversion[k] = '_';
+		}
 	}
 	if (hiddenWord === currentWordConversion) {
 		wins += 1;
@@ -57,7 +60,12 @@ document.onkeyup = function(event) {
 	setup(reset);
 	for (var j = 0; j < currentWord.length; j++) {
 		if (eventInput == currentWord.charAt(j)) {
-			hiddenWord[j] = eventInput;
+//			if (eventInput = ' ') { 
+//				hiddenWord[j] = '_';
+//			} else {
+				hiddenWord[j] = eventInput;
+			
+//			}
 //			tempWord += eventInput;
 		}// else if (hiddenWord.charAt(j) != "_") {
 //			tempWord += hiddenWord.charAt(j);
