@@ -1,7 +1,8 @@
 var wordList = ["cybermen", "sontarans", "daleks", "gallifrey", "tardis", 
-			    "mondas", "nestene", "zygons", "master", "yeti", "great intelligence" ];
+			    "mondas", "nestene", "zygons", "master", "yeti", 
+			    "great intelligence", "davros", "skaro", "rassilon" ];
 var currentWord = "";
-var hiddenWord = "";
+var hiddenWord = [];
 var tempWord = "";
 var reset = true;
 var wins = 0;
@@ -9,17 +10,18 @@ var guesses = 5;
 var guessed = [];
 function pickAWord() {
 	reset = false;
-	hiddenWord = "";
-	currentWord = wordList[Math.floor(Math.random() * wordList.length)];
+	hiddenWord = [];
+	currentWord = 'great intelligence';
+//	currentWord = wordList[Math.floor(Math.random() * wordList.length)];
 	for (var i = 0; i < currentWord.length; i++) {
 		if (currentWord.charAt(i) != ' ') {
-			hiddenWord += '_';
+			hiddenWord[i] = '-';
 		} else {
-			hiddenWord += ' ';
+			hiddenWord[i] = '_';
 		}
 	}
 	document.getElementById('currentWord').innerHTML = currentWord;
-	document.getElementById('hiddenWord').innerHTML = hiddenWord;
+	document.getElementById('hiddenWord').innerHTML = hiddenWord.join(' ');
 	console.log(currentWord + " " + hiddenWord + " " + reset);
 	guessed = [];
 	guesses = 5;
@@ -35,7 +37,11 @@ function setup(reset) {
 }
 
 function checkForWin() {
-	if (hiddenWord === currentWord) {
+	var currentWordConversion = [];
+	for (var k = 0; k < currentWord.length; k++) {
+		currentWordConversion[k] = currentWord.charAt(k);
+	}
+	if (hiddenWord === currentWordConversion) {
 		wins += 1;
 		document.getElementById('wins').innerHTML = wins;
 		pickAWord();
@@ -51,12 +57,13 @@ document.onkeyup = function(event) {
 	setup(reset);
 	for (var j = 0; j < currentWord.length; j++) {
 		if (eventInput == currentWord.charAt(j)) {
-			tempWord += eventInput;
-		} else if (hiddenWord.charAt(j) != "_") {
-			tempWord += hiddenWord.charAt(j);
-		} else {
-			tempWord += "_";
-		}
+			hiddenWord[j] = eventInput;
+//			tempWord += eventInput;
+		}// else if (hiddenWord.charAt(j) != "_") {
+//			tempWord += hiddenWord.charAt(j);
+//		} else {
+//			tempWord += "_";
+//		}
 
 	}
 	if (eventInput != " ") {
@@ -77,8 +84,8 @@ document.onkeyup = function(event) {
 		document.getElementById('alert').innerHTML = "Game Over";
 		pickAWord();
 	}
-	hiddenWord = tempWord;
-	tempWord = "";
-	document.getElementById('hiddenWord').innerHTML = hiddenWord;
+//	hiddenWord = tempWord;
+//	tempWord = "";
+	document.getElementById('hiddenWord').innerHTML = hiddenWord.join(' ');
 	checkForWin();
 }	
